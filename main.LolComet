@@ -1,0 +1,363 @@
+--doors
+
+local syn = {}
+
+local clonerefby = false
+local bypass = false
+function syn.clonerefsupport()
+    if cloneref then
+        else
+            if clonerefby == false then
+                clonerefby = true
+                loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/CloneRef.lua", true))()
+            end
+    end
+end
+function syn.bypass()
+    if not cloneref then
+    else
+    syn.clonerefsupport()
+        if bypass == false then
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/Bypasses.lua", true))()
+            bypass = true
+        end
+    end
+end
+--syn.bypass()
+syn.clonerefsupport()
+function syn.GetObjSafe(obj)
+    return cloneref(obj) or obj
+end
+local workspace = syn.GetObjSafe(game:GetService("Workspace"))
+local client = syn.GetObjSafe(game:GetService("Players").LocalPlayer)
+local speed = 4
+local saver = Instance.new("Folder",syn.GetObjSafe(workspace))
+saver.Name = "Sounds"
+saver = syn.GetObjSafe(saver)
+local Lighting = syn.GetObjSafe(game:GetService("Lighting"))
+local repo = 'https://raw.githubusercontent.com/wally-rblx/LinoriaLib/main/'
+local Library = loadstring(game:HttpGet(repo .. 'Library.lua'))()
+local char = client.Character
+local instantpp
+local creator = "Open"
+local version = "1.4.5 Reworked First Release Public"
+local oldgreed = client:GetAttribute("Greed")
+local start = tick()
+char.Humanoid.Died:Connect(function()
+notify("You Died Playing Again...",3)
+syn.GetObjSafe(game:GetService("ReplicatedStorage").EntityInfo.PlayAgain):FireServer()
+end)
+instantpp = syn.GetObjSafe(game:GetService("ProximityPromptService")).PromptButtonHoldBegan:Connect(function(prompt)
+			if fireproximityprompt then 
+                fireproximityprompt(prompt) 
+            else 
+                prompt.HoldDuration = 0
+            end
+		end)
+pcall(function()
+game:GetService("ReplicatedStorage").EntityInfo.CamShake:Destroy()
+game:GetService("ReplicatedStorage").EntityInfo.CamShakeRelative:Destroy()
+game:GetService("ReplicatedStorage").EntityInfo.Vignette:Destroy()
+game:GetService("ReplicatedStorage").CameraShaker:Destroy()
+game:GetService("ReplicatedStorage").ClientModules.EntityModules:Destroy()
+game:GetService("ReplicatedStorage").Bricks.Jumpscare:Destroy()
+game:GetService("ReplicatedStorage").EntityInfo.Screech:Destroy()
+game:GetService("ReplicatedStorage").Entities:Destroy()
+game:GetService("ReplicatedStorage").EntityInfo.DeathHint:Destroy()
+game:GetService("Players").LocalPlayer.PlayerGui.MainUI.MainFrame.HasteVignette:Destroy()
+game:GetService("Players").LocalPlayer.PlayerGui.MainUI.MainFrame.SanityVignette:Destroy()
+game:GetService("Players").LocalPlayer.PlayerGui.MainUI.MainFrame.SeekVignette:Destroy()
+game:GetService("Players").LocalPlayer.PlayerGui.MainUI.MainFrame.WhiteVignette:Destroy()
+game:GetService("Players").LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game.RemoteListener.Modules.Screech:Destroy()
+end)
+function notify(text,time)
+Library:Notify(text,time)
+Instance.new("Sound",saver).Name = "notif"
+saver.notif.SoundId = "rbxassetid://4590657391"
+saver.notif.Volume = 10
+saver.notif:Play()
+end
+--noclip
+task.spawn(function()
+_G.Keybind = "N"
+_G.IncludeNoclip = true
+local isEnabled = false
+local UIS = syn.GetObjSafe(game:GetService("UserInputService"))
+local Plr = client
+local Char = char
+function getValue()
+    local value
+    if isEnabled then
+        value = "On"
+    else
+        value = "Off"
+    end
+    return value
+end
+UIS.InputBegan:Connect(function(input, gp)
+    if gp then return end
+    if input.KeyCode == Enum.KeyCode[_G.Keybind] then
+        isEnabled = not isEnabled
+        task.wait()
+
+        notify("Noclip Is Now Set To: "..getValue(),3)
+    end
+end)
+syn.GetObjSafe(game:GetService("RunService")).RenderStepped:Connect(function()
+    if not Char:FindFirstChild("HumanoidRootPart") then return end
+    if _G.IncludeNoclip then
+        Char.HumanoidRootPart.CanCollide = not isEnabled
+        Char.Collision.CanCollide = not isEnabled
+    end
+    local HrpCFrame = Char.HumanoidRootPart.CFrame
+    local ray = Ray.new(HrpCFrame.Position, HrpCFrame.LookVector * 0.5)
+    local part = workspace:FindPartOnRay(ray)
+    if part and part.CanCollide == true and isEnabled then
+        Char.HumanoidRootPart.Anchored = true
+        Char:PivotTo(Char.HumanoidRootPart.CFrame * CFrame.new(0, 1000, 0))
+        task.wait()
+        Char:PivotTo(Char.HumanoidRootPart.CFrame * CFrame.new(0, 0, -4))
+        task.wait()
+        Char:PivotTo(Char.HumanoidRootPart.CFrame * CFrame.new(0, -1000, 0))
+        task.wait(0.1)
+        Char.HumanoidRootPart.Anchored = false
+    end
+end)
+end)
+--noclip
+notify("Noclip Sussesfully Loaded!",3)
+local hackname = "LolComet"
+
+
+
+
+notify("Loading... "..hackname.." Version:"..version.." Maded By:"..creator,5)
+pcall(function()game:GetService("ReplicatedStorage").EntityInfo.MotorReplication:Destroy()end)
+
+local old6
+local old5
+local old4
+local old2
+local old3
+local old
+
+
+notify("Loading Anti-Kick",4)
+local player = game:GetService("Players").LocalPlayer
+local old43
+old43 = hookmetamethod(game,"__namecall",function(self,...)
+local method43 = getnamecallmethod()
+if method43 == "Kick" or method43 == "kick" then
+return notify("An Unexpected Kick Has Been Blocked",5)
+end
+return old43(self,...)
+end)
+local a;local b;
+--[[b = game:GetService("RunService").RenderStepped:Connect(function()
+    char.Collision.Position = char.HumanoidRootPart.Position - Vector3.new(0,10,0)
+end)]]
+notify("Loaded Anti-Kick",4)
+--notify("Loaded GOD-MODE Doesn't Work On Seek And Figure")
+task.spawn(function() 
+Lighting.Brightness = 2
+Lighting.FogEnd = 100000
+Lighting.GlobalShadows = false
+Lighting.ExposureCompensation = 1
+char.Humanoid:SetAttribute("SpeedBoost",speed)
+a = game:GetService("RunService").RenderStepped:Connect(function()
+Lighting.Brightness = 2
+Lighting.FogEnd = 100000
+Lighting.GlobalShadows = false
+Lighting.ExposureCompensation = 1
+if oldgreed ~= client:GetAttribute("Greed") and client:GetAttribute("Greed") <= 5 then
+    notify("Greed Level:"..client:GetAttribute("Greed"),3)
+    oldgreed = client:GetAttribute("Greed")
+elseif oldgreed ~= client:GetAttribute("Greed") and client:GetAttribute("Greed") >= 6 then
+    notify("DO NOT TAKE ANYMORE GOLD",3)
+    oldgreed = client:GetAttribute("Greed")
+end
+char.Humanoid:SetAttribute("SpeedBoost",speed)
+end)
+end)
+task.spawn(function()
+function esp(what,color,core,name,box)
+    local parts
+    
+    if typeof(what) == "Instance" then
+        if what:IsA("Model") then
+            parts = what:GetChildren()
+        elseif what:IsA("BasePart") then
+            parts = {what,table.unpack(what:GetChildren())}
+        end
+    elseif typeof(what) == "table" then
+        parts = what
+    end
+    
+    local bill
+    local boxes = {}
+    
+    for i,v in pairs(parts) do
+        if v:IsA("BasePart") and box == true then
+            local box = Instance.new("BoxHandleAdornment")
+            box.Size = v.Size
+            box.AlwaysOnTop = true
+            box.ZIndex = 1
+            box.AdornCullingMode = Enum.AdornCullingMode.Never
+            box.Color3 = color
+            box.Transparency = 0.7
+            box.Adornee = v
+            box.Parent = syn.GetObjSafe(game:GetService("CoreGui"))
+            
+            table.insert(boxes,box)
+            
+            task.spawn(function()
+                while box do
+                    if box.Adornee == nil or not box.Adornee:IsDescendantOf(syn.GetObjSafe(workspace)) then
+                        box.Adornee = nil
+                        box.Visible = false
+                        box:Destroy()
+                    end  
+                    task.wait()
+                end
+            end)
+        end
+    end
+    
+    if core and name then
+        bill = Instance.new("BillboardGui",syn.GetObjSafe(game:GetService("CoreGui")))
+        bill.AlwaysOnTop = true
+        bill.Size = UDim2.new(0,400,0,100)
+        bill.Adornee = core
+        bill.MaxDistance = distance
+        
+        local mid = Instance.new("Frame",bill)
+        mid.AnchorPoint = Vector2.new(0.5,0.5)
+        mid.BackgroundColor3 = color
+        mid.Size = UDim2.new(0,8,0,8)
+        mid.Position = UDim2.new(0.5,0,0.5,0)
+        Instance.new("UICorner",mid).CornerRadius = UDim.new(1,0)
+        Instance.new("UIStroke",mid)
+        
+        local txt = Instance.new("TextLabel",bill)
+        txt.AnchorPoint = Vector2.new(0.5,0.5)
+        txt.BackgroundTransparency = 1
+        txt.BackgroundColor3 = color
+        txt.TextColor3 = color
+        txt.Size = UDim2.new(1,0,0,20)
+        txt.Position = UDim2.new(0.5,0,0.7,0)
+        txt.Text = name
+        Instance.new("UIStroke",txt)
+        
+        task.spawn(function()
+            while bill do
+                if bill.Adornee == nil or not bill.Adornee:IsDescendantOf(syn.GetObjSafe(workspace)) then
+                    bill.Enabled = false
+                    bill.Adornee = nil
+                    bill:Destroy() 
+                end  
+                task.wait()
+            end
+        end)
+    end
+    
+    local ret = {}
+    
+    ret.delete = function()
+        for i,v in pairs(boxes) do
+            v.Adornee = nil
+            v.Visible = false
+            v:Destroy()
+        end
+        
+        if bill then
+            bill.Enabled = false
+            bill.Adornee = nil
+            bill:Destroy() 
+        end
+    end
+    
+    return ret 
+end
+function check(v)
+    wait()
+    if v.Name == "Seek_Arm" then
+task.spawn(function()
+wait()
+v:Destroy()
+    end)
+    end
+    if v:IsA("Model") and (v:GetAttribute("IsKey") or v:GetAttribute("Pickup")) or (v.Name == "LiveHintBook" or v.Name == "LiveBreakerPolePickup") then
+esp(v.PrimaryPart,Color3.new(0.3,0.7,0.1),v.PrimaryPart,v.Name,false)
+    end
+    
+    if v:IsA("ProximityPrompt") then
+    v.HoldDuration = 0
+    v.MaxActivationDistance = 12
+    v.RequiresLineOfSight = false
+    end
+if v.Name == "Door" and v.ClassName == "Model" then
+esp(v:WaitForChild("Door"),Color3.new(0.5,0.9,0.3),v:WaitForChild("Door"),"Door",false)
+--elseif v:IsA("Model") and (v.Name == "LiveHintBook" or v.Name == "LiveBreakerPolePickup") then
+    --esp(v.PrimaryPart,Color3.new(0.3,0.7,0.1),v.PrimaryPart,"Item: "..v.Name,false)
+    elseif v:IsA("Model") then
+                task.wait(0.1)
+                if v.Name == "Wardrobe" then
+                    esp(v.PrimaryPart,Color3.new(0.3,0.7,0.1),v.PrimaryPart,"Hiding Spot",false)
+                elseif (v.Name == "Rooms_Locker" or v.Name == "Rooms_Locker_Fridge") then
+                    esp(v.PrimaryPart,Color3.new(0.3,0.7,0.1),v.PrimaryPart,"Hiding Spot",false)
+                    elseif v.Name == "ChestBox" or v.Name == "ChestBoxLocked" then
+                        esp(v.PrimaryPart,Color3.new(0.3,0.7,0.1),v.PrimaryPart,"Chest",false)
+                        elseif v.Name == "GoldPile" then
+                            esp(v:WaitForChild("Hitbox"),Color3.new(0.5,0.7,0),v:WaitForChild("Hitbox"),"Gold",false)
+                            elseif v.Name == "LeverForGate" then
+                                esp(v.PrimaryPart,Color3.new(0.3,0.7,0.1),v.PrimaryPart,"Lever",false)
+                end
+end
+end
+local distance = 7000
+local entitynames = {"RushMoving","AmbushMoving","Snare","A60","A120"}
+local LatestRoom = game:GetService("ReplicatedStorage").GameData.LatestRoom
+LatestRoom.Changed:Connect(function()
+notify(tostring("Room:"..LatestRoom.Value),3)
+for _,v in pairs(workspace.CurrentRooms:GetDescendants()) do
+check(v)
+end
+    end)
+    for _,v in pairs(workspace.CurrentRooms:GetDescendants()) do
+    check(v)
+    end
+    workspace.CurrentRooms.DescendantAdded:Connect(check)
+workspace.ChildAdded:Connect(function(v)
+if v.Name == "BananaPeel" then
+    esp(v,Color3.new(1,1,0),v,"Banana",true)
+elseif v.Name == "JeffTheKiller" then
+    notify("Jeff The Killer Has Spawned",4)
+    v:WaitForChild("Humanoid").WalkSpeed = 0
+    v:WaitForChild("Humanoid").Health = 0
+    esp(v.PrimaryPart,Color3.new(1,0,0),v.PrimaryPart,v.Name,false)
+end
+
+if table.find(entitynames,v.Name) then
+                task.wait(0.1)
+                esp(v.PrimaryPart,Color3.new(1,0,0),v.PrimaryPart,v.Name:gsub("Moving",""),false)
+                if (char.PrimaryPart.Position - v.PrimaryPart.Position).Magnitude <= distance then
+notify(v.Name:gsub("Moving","").." Is Coming Go Hide",4)
+ins = v
+                end
+            end
+            if v.Name == "SeekMoving" then
+notify("Seek Chase",3)
+esp(v.Figure,Color3.new(1,0,0),v.Figure,v.Name:gsub("Moving",""),false)
+            end
+            if v.Name == "Eyes" then
+notify("Eyes Has Spawned",4)
+repeat task.wait() until v.Core
+esp(v.Core,Color3.new(1,0,0),v.Core,"Eyes",false)
+
+            end
+end)
+for _,v  in pairs(workspace.CurrentRooms:GetDescendants()) do
+check(v)
+end
+notify(tostring("Loaded Took:"..tick() - start),5)
+end)
