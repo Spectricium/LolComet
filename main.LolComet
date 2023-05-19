@@ -132,7 +132,7 @@ local hackname = "LolComet"
 
 
 notify("Loading... "..hackname.." Version:"..version.." Maded By:"..creator,5)
-pcall(function()game:GetService("ReplicatedStorage").EntityInfo.MotorReplication:Destroy()end)
+--pcall(function()game:GetService("ReplicatedStorage").EntityInfo.MotorReplication:Destroy()end)
 
 local old6
 local old5
@@ -153,11 +153,11 @@ end
 return old43(self,...)
 end)
 local a;local b;
---[[b = game:GetService("RunService").RenderStepped:Connect(function()
+b = game:GetService("RunService").RenderStepped:Connect(function()
     char.Collision.Position = char.HumanoidRootPart.Position - Vector3.new(0,10,0)
-end)]]
+end)
 notify("Loaded Anti-Kick",4)
---notify("Loaded GOD-MODE Doesn't Work On Seek And Figure")
+notify("Loaded GOD-MODE Doesn't Work On Seek And Figure")
 task.spawn(function() 
 Lighting.Brightness = 2
 Lighting.FogEnd = 100000
